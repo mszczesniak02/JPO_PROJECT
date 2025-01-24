@@ -1,15 +1,31 @@
 #pragma once
 
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <map>
+#include <sstream>
+#include <algorithm>
+#include <numeric>
+#include <tuple>
+
+using std::tuple, std::map, std::vector,std::cout;
+
 #include "file.hpp"
 
-class CSV_File : public File {
-public:
-    explicit CSV_File(string dir) : File(std::move(dir)) {}
+typedef struct statistics{
+        string column_name_;
+        tuple<int,string> most_popular_;
+        tuple<int,string> least_popular_;
 
-    void analyze() override {
-        cout << "Analyzing CSV File: " << dir_ << "\n";
-        for (size_t i = 0; i < contents_.size(); ++i) {
-            cout << "Row " << i + 1 << ": " << contents_[i] << "\n";
-        }
-    }
+}statistics;
+
+
+class CSV_File : public File {
+    public:
+
+        explicit CSV_File(string dir) : File(std::move(dir)) {};
+        vector<statistics> stats_;
+
+        void analyze() override;
 };
