@@ -7,7 +7,8 @@ void File::print_error(string error_msg){
     cout<<error_msg<<'\n';
 }
 
-File::File(string dir) : dir_(std::move(dir)){ // opens a file and inserts its contents into a vector
+File::File(string dir){ // opens a file and inserts its contents into a vector
+    
     dir_ = dir;
     fstream f;
     f.open(dir_, fstream::in);
@@ -48,7 +49,7 @@ void File::file_properties(){
     if(fs::exists(temp_dir)){
         properties_.dir_absolute_ =  (fs::absolute(temp_dir)).generic_string(); 
         properties_.extention_ = (temp_dir.extension()).generic_string(); // insert lamba func to operate on extention names: .txt -> text file
-        properties_.size_ = (fs::file_size(temp_dir));
+        properties_.size_ = std::to_string((fs::file_size(temp_dir)));
         
         if (fs::is_regular_file(temp_dir)) {
             properties_.is_dir_ = false;
