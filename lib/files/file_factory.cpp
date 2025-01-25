@@ -3,7 +3,6 @@
 #include "text_file.hpp"
 #include "code_file.hpp"
 #include "html_file.hpp"
-#include "tsv_file.hpp"
 #include "css_file.hpp"
 
 
@@ -22,8 +21,6 @@ public:
             return std::make_unique<CSS_File>(dir);
         }else if (extension == ".html") {
             return std::make_unique<HTML_File>(dir);
-        }else if (extension == ".tsv") {
-            return std::make_unique<TSV_File>(dir);
         }
 
         // type not supported:
