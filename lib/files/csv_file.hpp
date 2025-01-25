@@ -27,5 +27,8 @@ class CSV_File : public File {
         explicit CSV_File(string dir) : File(std::move(dir)) {};
         vector<statistics> stats_;
 
-        void analyze() override;
+        void analyze();
+        vector<string> split(string s, const string& delimiter);
+         
+
 };

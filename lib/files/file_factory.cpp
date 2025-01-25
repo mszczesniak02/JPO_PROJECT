@@ -1,29 +1,30 @@
 #include "file.hpp"
 #include "csv_file.hpp"
 #include "text_file.hpp"
-#include "code_file.hpp"
 #include "html_file.hpp"
 #include "css_file.hpp"
+#include <filesystem>
+#include <string>
+#include <stdexcept>
 
+namespace fs = std::filesystem;
 
 class File_Factory {
 public:
-    static std::unique_ptr<File> createFile(const string& dir) {
-        const string extension = fs::path(dir).extension().string();
+    static File* createFile(const std::string& dir) {
+        const std::string extension = fs::path(dir).extension().string();
 
         if (extension == ".txt") {
-            return std::make_unique<TXT_File>(dir);
+            return new TXT_File(dir);  // Create a new TXT_File object and return a raw pointer
         } else if (extension == ".csv") {
-            return std::make_unique<CSV_File>(dir);
-        } else if (extension == ".c" || extension == ".h") {
-            return std::make_unique<CODE_File>(dir);
-        }else if (extension == ".css" ) {
-            return std::make_unique<CSS_File>(dir);
-        }else if (extension == ".html") {
-            return std::make_unique<HTML_File>(dir);
+            return new CSV_File(dir);  // Create a new CSV_File object and return a raw pointer
+        } else if (extension == ".css") {
+            return new CSS_File(dir);  // Create a new CSS_File object and return a raw pointer
+        } else if (extension == ".html") {
+            return new HTML_File(dir);  // Create a new HTML_File object and return a raw pointer
         }
 
-        // type not supported:
+        // Unsupported file type:
         throw std::invalid_argument("Unsupported file type: " + extension);
     }
 };

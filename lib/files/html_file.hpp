@@ -12,35 +12,36 @@
 #include "file.hpp"
 
 
-typedef struct temp{
-            int total_tags;
-            //tuple<int,string> most_popular_;
-            int non_tag_lines;
-
-}statistics;
-
-
-typedef struct statistics{
-            int total_tags;
-            int non_tag_lines;
-            vector<string> comments_;
-
-}statistics;
-
-
-
 class HTML_File : public File {
 public:
+    typedef struct statistics{
+                int total_tags;
+                int non_tag_lines;
+                vector<string> comments_;
+
+    }statistics;
+
+    typedef struct temp{
+        int total_tags;
+        //tuple<int,string> most_popular_;
+        int non_tag_lines;
+
+    }temp;
+
     explicit HTML_File(string dir) : File(std::move(dir)) {}
+    
     void HTML_File::analyze() override {
-        // Detect HTML comments in the file
+      
         vector<string> comments = detect_comments(contents_);
 
-        // Analyze HTML tags and generate statistics
+       
         temp st = analyze_html_tags(contents_);
 
         statistics result = {st.total_tags, st.non_tag_lines ,comments};
-    
+
+        for (auto & com: result.comments_){
+            cout<<com<<endl;
+        }
     };
     const map<string, bool> HTML_File::voidTags = {
         {"area", true}, {"base", true}, {"br", true}, {"col", true},
