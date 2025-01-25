@@ -3,10 +3,6 @@
 #include "file.hpp"
 #include "css_file.hpp"
 
-
-
-    
-
 // Function to count classes
 void CSS_File::detect_classes(Statistics& stats) {
     //vector<string>& contents_=  get_contents();
