@@ -202,7 +202,7 @@ int main(int, char**)
             
             ImGui::SetCursorPos(ImVec2(50,400));
             if(ImGui::Button("<-Confirm choise->", ImVec2(400,50))){
-                if( abs_path == '\0') {     // IF THE INPUT IS NOTHING, SHOW ERROR
+                if( abs_path[0] == '\0') {     // IF THE INPUT IS NOTHING, SHOW ERROR
                     ImGui::OpenPopup("Error");
                 };
                 string abs_path_str(abs_path);
