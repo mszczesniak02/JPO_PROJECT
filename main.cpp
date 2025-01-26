@@ -62,6 +62,8 @@ vector<File*> files;
 
 int main(int, char**)
 {
+    SetErrorMode(SEM_FAILCRITICALERRORS | SEM_NOGPFAULTERRORBOX);
+
     // --------------------------------------IMGUI--------------------------------
     // Create application window
     //ImGui_ImplWin32_EnableDpiAwareness();
@@ -118,11 +120,13 @@ int main(int, char**)
    
     // --------------------------------------PROJECT: --------------------------------
   
-    char abs_path;                          //  HOLD USER PATH INPUT  
+    static char abs_path[100] = "";                              //  HOLD USER PATH INPUT  
     bool btn_confirm = false;               //  CONTROLLES THE CONFIRM BUTTON
     // bool show_new_window = false;           //  TESTING
     bool show_window_directory = false;     // ENABLE DIR PICK VIEW
-    bool show_window_file_details = false;  // ENABLE FILE LOOK=UP 
+    bool show_window_file_details = false;  // ENABLE FILE LOOK=UP
+
+
 
     string starting_file;                   // CONTROLING THE PATH NAVIGATION FOR CHANGING SCREENS
     string current_file;
@@ -198,7 +202,7 @@ int main(int, char**)
             
             ImGui::Button("Type the file/directory below", ImVec2(400,100));    // 
             ImGui::SetCursorPos(ImVec2(80,375));
-            ImGui::InputText("##empty_label", &abs_path, CHAR_MAX);         // TAKES USER INPUT
+            ImGui::InputText("##dontShow", abs_path, IM_ARRAYSIZE(abs_path));         // TAKES USER INPUT
             // ImGui::InputText("##absolute_path_input",&absolute_path_input, CHAR_MAX);
             
             ImGui::SetCursorPos(ImVec2(50,400));
@@ -206,11 +210,16 @@ int main(int, char**)
                 if( abs_path == '\0') {     // IF THE INPUT IS NOTHING, SHOW ERROR
                     ImGui::OpenPopup("Error");
                 };
-                string abs_path_str = &abs_path;
+                string abs_path_str(abs_path);
+              
+
                 starting_file = fs::path(abs_path_str).string();   // MUST HAVE FOR CHAR& TO STRING CONVERSION
                 
                 previous_file = starting_file;
                 current_file = abs_path_str;            // SET INITIAL SCREEN FOR LATER CHECKING
+                
+                
+            
                 
                 // LOGIC BEHIND : -> IN A CASE WHERE I GO BACK ENOUGH, I WANT TO GO TO WELCOME SCREEN, NOT FURTHER INTO PARENT PATH
                 if ( fs::is_regular_file(current_file) == true){ // IS FILE ?
@@ -441,6 +450,7 @@ int main(int, char**)
     }
 
     return 0;
+    
 }
 
 // Helper functions
