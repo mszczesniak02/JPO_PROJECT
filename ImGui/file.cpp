@@ -44,6 +44,7 @@ void File::print_file_properties(){
 }
 
 void File::file_properties(){
+
     // i know that the file exists, but if the file gets removed while looking at it, do sth
     const fs::path& temp_dir = dir_;
     if(fs::exists(temp_dir)){
@@ -60,9 +61,7 @@ void File::file_properties(){
         // Tylko do odczytu
         auto perms = fs::status(temp_dir).permissions();
         properties_.perms_ = (perms & fs::perms::owner_write) == fs::perms::none;
-    }else{
-        // set as null ? Could Not Read
-
+        
     }
 
 }

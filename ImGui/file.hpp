@@ -42,5 +42,4 @@ class File{ // base class, read file into vector and close the file
 
         // file analyzer
         virtual void analyze() = 0; // different file types have different ways to analyze themselves, so this is purely for convinience 
-        
 };
