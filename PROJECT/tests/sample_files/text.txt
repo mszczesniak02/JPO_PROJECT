@@ -1,0 +1,14 @@
+a
+quick
+fox
+jumps
+over 
+a
+lazy
+dog
+1
+2
+3
+4
+56789
+10

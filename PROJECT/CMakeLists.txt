@@ -1,9 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
-# Project Name and Language
 project(JPO_PROJECT LANGUAGES CXX)
 
-# Set C++ Standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -19,8 +17,7 @@ include_directories(${CMAKE_SOURCE_DIR}/ImGui ${DIRECTX_SDK_INCLUDE})
 file(GLOB IMGUI_SOURCES
     ${CMAKE_SOURCE_DIR}/ImGui/*.cpp
     ${CMAKE_SOURCE_DIR}/ImGui/*.h
-    ${CMAKE_SOURCE_DIR}/ImGui/*.hPP
-
+    ${CMAKE_SOURCE_DIR}/ImGui/*.hpp
 )
 
 # EXECS
@@ -29,3 +26,7 @@ add_executable(${PROJECT_NAME} main.cpp ${IMGUI_SOURCES})
 # Link DirectX9 libraries
 target_link_libraries(${PROJECT_NAME} d3d9 dwmapi gdi32 )
 target_link_directories(${PROJECT_NAME} PRIVATE ${DIRECTX_SDK_LIB})
+
+# GTest
+add_subdirectory(tests)
+

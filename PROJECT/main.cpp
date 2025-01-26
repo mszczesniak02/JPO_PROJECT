@@ -20,11 +20,6 @@
 #include <string>
 #include <d3d9.h>
 
-
-
-
-
-
 namespace fs = std::filesystem;
 
 // -------------------------------------------- IMGUI------------------------------------ 
@@ -211,10 +206,8 @@ int main(int, char**)
                     ImGui::OpenPopup("Error");
                 };
                 string abs_path_str(abs_path);
-              
 
                 starting_file = fs::path(abs_path_str).string();   // MUST HAVE FOR CHAR& TO STRING CONVERSION
-                
                 previous_file = starting_file;
                 current_file = abs_path_str;            // SET INITIAL SCREEN FOR LATER CHECKING
                 
